@@ -1,0 +1,46 @@
+#visualisation {
+	background-color: teal;
+	padding: 10px;
+}
+
+.cssdrawZone {background-color: pink;}
+.cssgraphZone {	background-color: red; fill: green;}
+.cssTitle {fill: yellow; y:"10"; text-anchor:"middle"}
+
+.cssSerieZone0 {fill: rgb(105, 133, 43);}
+.cssSerieZone1 {fill: rgb(105, 133, 63);}
+.cssSerieZone2 {fill: rgb(105, 133, 83);}
+.cssSerieZone3 {fill: rgb(105, 133, 103);}
+.cssSerieZone4 {fill: rgb(105, 133, 123);}
+.cssSerieZone5 {fill: rgb(105, 133, 143);}
+.cssSerieZone6 {fill: rgb(105, 133, 163);}
+
+.cssLabelValue {
+    font-family: sans-serif;
+    font-size: 11px;
+	fill: pink;
+}
+
+.cssShape1 {fill: yellow; 	stroke: orange;	stroke-width: 1;}
+.cssShape2 {fill: purple;	stroke: orange;	stroke-width: 1;}
+.cssShape3 {fill: pink;  	stroke: orange;	stroke-width: 1;}
+.cssShape4 {fill: blue;  	stroke: orange;	stroke-width: 1;}
+.cssShape5 {fill: lightblue;stroke: orange;	stroke-width: 1;}
+.cssShape6 {fill: red;		stroke: orange;	stroke-width: 1;}
+
+.cssLabelText {
+    font-family: sans-serif;
+    font-size: 11px;
+	fill: red;}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}

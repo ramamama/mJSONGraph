@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index.html</title>
+<link rel="stylesheet" href="css/svgDefault.css" type="text/css" />
+
+<style type='text/css'></style>
+<style>
+#drawZone {
+	background-color: teal;
+	padding: 10px;
+}
+	#mleft { width: 50%; float: left; }
+	#mright { width: 50%; float: right; background-color: green;}
+.cssdrawZone1 {fill: red; }
+.cssDefaultRect {fill: green; }
+</style>
+
+
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headjs/0.96/head.min.js"></script>
+<script language="javascript">
+head.js("http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js")
+		.js("http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.3.3/underscore-min.js")
+		.js("http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js")
+		.js("http://cdnjs.cloudflare.com/ajax/libs/d3/2.10.0/d3.v2.min.js")
+		.js("js/svgFunction.js")	
+		.js("js/svgRect.js")		
+		.js("js/svgText.js")
+		.js("js/svgBar.js")
+		.js("js/svgHisto.js");
+
+
+
+head.ready(function() {
+	$(document).ready(function(){
+
+/************************************ Function *******************************/
+var mdata=	[{dateExtraction: 2007, Effectif_reel : 51},
+			{dateExtraction: 2008, 	Effectif_reel : 59},
+			{dateExtraction: 2009,	Effectif_reel : 52},
+			{dateExtraction: 2010,	Effectif_reel : 37},
+			{dateExtraction: 2011,	Effectif_reel : 24}];
+
+/************************************ Model *******************************/
+
+
+/************************************ Collection *******************************/
+
+
+/************************************ View *******************************/
+
+
+/************************************ CollectionView *******************************/
+
+
+/************************************ Application *******************************/
+
+var maZone=d3.select("#mleft").append("svg").attr("id","Histo1");
+
+var monstyle={	id : "histoBar",
+				type: "rightleft",
+				x: 100,
+				y: 50,
+				w: 200,
+				h: 300,
+				interBar: 5,
+				data: mdata,
+				labelKey: "dateExtraction",
+				valueKey: "Effectif_reel",
+				svgBar_Style:
+				{	id : "testBar", 
+					type: "jsBarLeftRight",
+					x: 10,
+					y: 50,
+					size: 100,
+					thickness: 50,
+					svgBar_label:  {
+						"id" : "label1",
+						"text":"Label",
+						"dx": 0,
+						"dy": 0
+					},
+					svgBar_label_position: "centerMiddle",
+					svgBar_rect:  	{ 	
+						"id" : "monrect3",
+						"name": "monrect3",
+						"style":"cssdrawZone1"
+					},
+					svgBar_value:  {
+						"id" : "value1",
+						"text":"100",
+						"dx": 15,
+						"dy": 0
+					},
+					svgBar_value_position: "centerRight",
+				}
+			};
+				
+var myHisto=new svgHisto_Model(monstyle);
+var myView=new svgHisto_ModelView({el: $("#Histo1"), model: myHisto});
+				
+d3.select("#mright").append("svg").attr("id","Histo2");				
+		
+var monstyle2={	id : "histoBar2",
+				type: "bottomup",
+				x: 100,
+				y: 50,
+				w: 200,
+				h: 300,
+				interBar: 5,
+				data: mdata,
+				labelKey: "dateExtraction",
+				valueKey: "Effectif_reel",
+				svgBar_Style:
+				{	id : "testBar", 
+				type: "jsBarTopBottom",
+				x: 10,
+				y: 50,
+				size: 100,
+				thickness: 50,
+				svgBar_label:  {
+					"text":"Label",
+					"dx": 0,
+					"dy": 0
+				},
+				svgBar_label_position: "centerMiddle",
+				svgBar_rect:  	{ 	
+					"style":"cssdrawZone1"
+				},
+				svgBar_value:  {
+					text: 10,
+					"dx": 0,
+					"dy": -5
+				},
+				svgBar_value_position: "topMiddle",
+		}
+			};
+			
+var myHisto2=new svgHisto_Model(monstyle2);
+var myView=new svgHisto_ModelView({el: $("#Histo2"), model: myHisto2});
+
+d3.select("#mtext").append("svg").attr("id","monTexte");	
+var untext=new svgText_Model({	id : "texte1",
+								text:"Exemple de texte",
+								x: 100,
+								y: 100,
+								dx: 0,
+								dy: 0,
+								style:"svgTextDefault"});
+var afficheTxt=new svgText_ModelView({el: $("#monTexte"), model: untext });
+
+
+d3.select("#mrect").append("svg").attr("id","RectE");	
+			
+var monRect=new svgRect_Model({	id : "monRect1",
+								x: 10,
+								y: 10,
+								w: 80,
+								h: 80,
+								style:"svgRectDefault"
+							});
+var afficheMonRect=new svgRect_ModelView({el: $("#RectE"), model: monRect });
+
+d3.select("#mbar").append("svg").attr("id","Abar");	
+var nBar=new svgBar_Model({	id : "testBar", 
+				type: "jsBarTopBottom",
+				x: 10,
+				y: 50,
+				size: 100,
+				thickness: 50,
+				svgBar_label:  {
+					"text":"Label",
+					"dx": 0,
+					"dy": 0
+				},
+				svgBar_label_position: "centerMiddle",
+				svgBar_rect:  	{ 	
+					"style":"cssdrawZone1"
+				},
+				svgBar_value:  {
+					text: 10,
+					"dx": 0,
+					"dy": -5
+				},
+				svgBar_value_position: "topMiddle",
+		});
+var affichenBar=new svgBar_ModelView({el: $("#Abar"), model: nBar });
+		
+								
+});
+});
+</script>
+</head>
+<body>
+<div id="mglobal">
+		<div id="mleft">Left</div>
+		<div id="mright">right</div>
+</div>
+		<div id="mtext">mtext</div>
+		<div id="mrect">mrect</div>
+		<div id="mbar">mbar</div>		
+</body>
+</html>
+
+
