@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Mjsongraph : a JSON + css engine to make graph" />
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+	
+	<style>
+	.col1 {width:100px}
+	.col2 {width:130px}
+	theader {	color: #55595c;}
+	
+	</style>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headjs/0.96/head.min.js"></script>
+
+    <title>Mjsongraph - svgHisto</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ramamama/mJSONGraph">View on GitHub</a>
+          <h1 id="project_title">mJSONGraph</h1>
+          <h2 id="project_tagline">a JSON + css engine to make graph</h2>
+		  <a href="index.html">Accueil</a> - 
+		  <a href="svgCanvas.html">svgCanvas</a> - 			  
+		  <a href="svgBar.html">svgBar</a> - 
+		  <a href="svgRect.html">svgRect</a> -
+		  <a href="svgText.html">svgText</a> -
+		  <a href="exemple.html">exemple</a>	
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+	  <h2>svgHisto</h2>
+
+<h3>Structure de l'objet svgHisto</h3>
+
+<p><strong>Code:</strong></p>
+
+<pre><code>var myHisto2=new svgHisto_Model({   
+    id : "histoBar2",
+    type: "bottomup",
+    x: 100,
+    y: 50,
+    w: 200,
+    h: 300,
+    interBar: 5,
+    data: mdata,
+    labelKey: "dateExtraction",
+    valueKey: "Effectif_reel",
+    svgBar_Style:{  
+        id : "testBar", 
+        type: "jsBarTopBottom",
+        x: 10,
+        y: 50,
+        size: 100,
+        thickness: 50,
+        svgBar_label:  {
+            "text":"Label",
+            "dx": 0,
+            "dy": 0
+            },
+        svgBar_label_position: "centerMiddle",
+        svgBar_rect:    {   
+            "style":"cssdrawZone1"
+            },
+        svgBar_value:  {
+            text: 10,
+            "dx": 0,
+            "dy": -5
+            },
+        svgBar_value_position: "topMiddle",
+        });
+</code></pre>
+
+<p><strong>Description:</strong></p>
+<table>
+	<thead>
+		<tr><td class="col1">Paramétre</td><td class="col2">Valeur par défaut</td><td>Description</td></tr>
+	</thead>
+	<tbody>
+		<tr><td class="col1">id :</td>		<td class="col2">null</td><td>id de l'objet histogramme</td></tr>
+		<tr><td class="col1">type :</td>	<td class="col2">null</td><td>type d'histogramme topDown, bottomUp, leftRight, rightLeft</td></tr>		
+		<tr><td class="col1">x :</td>		<td class="col2">0</td><td>position horizontale de l'histogramme</td></tr>
+		<tr><td class="col1">y :</td>		<td class="col2">0</td><td>position verticale de l'histogramme</td></tr>
+		<tr><td class="col1">w :</td>		<td class="col2">0</td><td>largeur de l'histogramme</td></tr>
+		<tr><td class="col1">h :</td>		<td class="col2">0</td><td>hauteur de l'histogramme</td></tr>
+		<tr><td class="col1">interBar :</td><td class="col2">5</td><td>espace entre les bars</td></tr>
+		<tr><td class="col1">data :</td>	<td class="col2">0</td><td>table de donnée</td></tr>
+		<tr><td class="col1">labelKey :</td><td class="col2">0</td><td>clé de la table contenant les titres</td></tr>
+		<tr><td class="col1">valueKey :</td><td class="col2">0</td><td>clé de la table contenant les valeurs</td></tr>
+		<tr><td class="col1">svgBar_Style :</td><td class="col2">0</td><td>svgBar objet ou structure JSON de svgBar</td></tr>		
+	</tbody>
+</table>
+
+<p><strong>Defaut css style:</strong></p>
+
+<pre><code>aucun
+</code></pre>
+
+<h3>Rendu de l'objet</h3>
+
+<p><strong>Code:</strong></p>
+
+<pre><code>var affichenBar=new svgBar_ModelView({el: $("#Abar"), model: nBar });
+</code></pre>
+
+<p><strong>Description:</strong></p>
+
+<table>
+	<thead>
+		<tr><td class="col1">Parametre</td><td>Valeur par défaut</td><td>Description</td></tr>
+	</thead>
+	<tbody>
+		<tr><td class="col1">el :</td><td>null</td><td>svg élément, où dessiner l'histogramme</td></tr>
+		<tr><td class="col1">model:</td><td>null</td><td>objet model</td></tr>
+	</tbody>
+</table>
+
+
+<p><strong>Exemple:</strong></p>
+
+<pre><code>//on creer le code svg et on lui affecte id= Histo2
+d3.select("#mright").append("svg").attr("id","Histo2");
+
+// on creer un objet svgHisto
+var myHisto2=new svgHisto_Model({   
+    id : "histoBar2",
+    type: "bottomup",
+    x: 100,
+    y: 50,
+    w: 200,
+    h: 300,
+    interBar: 5,
+    data: mdata,
+    labelKey: "dateExtraction",
+    valueKey: "Effectif_reel",
+    svgBar_Style:{  
+        id : "testBar", 
+        type: "jsBarTopBottom",
+        x: 10,
+        y: 50,
+        size: 100,
+        thickness: 50,
+        svgBar_label:  {
+            "text":"Label",
+            "dx": 0,
+            "dy": 0
+            },
+        svgBar_label_position: "centerMiddle",
+        svgBar_rect:    {   
+            "style":"cssdrawZone1"
+            },
+        svgBar_value:  {
+            text: 10,
+            "dx": 0,
+            "dy": -5
+            },
+        svgBar_value_position: "topMiddle",
+        });
+
+//on affiche l'objet myHisto2 à l'emplacement Histo2
+var myView=new svgHisto_ModelView({el: $("#Histo2"), model: myHisto2});
+</code></pre>
+	  
+	  </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mjsongraph maintained by <a href="https://github.com/ramamama">ramamama</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
+

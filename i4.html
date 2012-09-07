@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Mjsongraph : a JSON + css engine to make graph" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+	<style type='text/css'>
+		.cssdrawZone {	fill:tail;  fill-opacity:0.1; stroke:pink; stroke-width:5;}
+		.svgTextLeft {font-family: Arial; font-size: 34; text-anchor: start;}
+		.svgTextRight{font-family: Arial; font-size: 34; text-anchor: end;}
+		.svgTextMiddle{font-family: Arial; font-size: 34; text-anchor: middle;}
+		.mCanvas{}
+	</style>
+
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headjs/0.96/head.min.js"></script>
+<script language="javascript">
+head.js("../lib/jquery-1.8.1.min.js")
+		.js("../lib/underscore-min.js")
+		.js("../lib/backbone-min.js")
+		.js("../lib/d3.v2.min.js")
+		.js("js/svgFunction.js")			
+		.js("js/svgMGraph.js")	
+		.js("js/svgCanvas.js")	
+		.js("js/svgRect.js")		
+		.js("js/svgText.js")
+		.js("js/svgBar.js")
+		.js("js/svgHisto.js");
+
+head.ready(function() {
+	$(document).ready(function(){
+	
+var mCanvas=new svgCanvas_Model({id:"monCanvas", x: 0, y: 0, w: 1000, h: 500, style:"mCanvas"});
+var maVue=new svgCanvas_ModelView({el:"#mleft ", model: mCanvas});   					
+
+
+///////////////////////////////////// BAR
+var nBar=new svgBar_Model({	id : "testBar", type: "jsBarTopBottom",	x: 100,	y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"topLeft",
+		"style":"svgTextRight",	
+		"dy": -7,
+		dx: -5
+		},
+	svgBar_label_position: "topLeft",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text":"topRight",
+		"style":"svgTextLeft",
+		"dy": -7,
+		dx: +5
+		},
+	svgBar_value_position: "topRight",
+	});
+	  
+var affichenBar=new svgBar_ModelView({el: $("#monCanvas"), model: nBar });
+
+///////////////////////////////////// BAR
+var nBar1=new svgBar_Model({ 
+	id : "testBar1", type: "jsBarTopBottom", x: 100, y: 50,	size: 300, thickness: 200,
+	svgBar_label: {
+		"text":"centerLeft",
+		"style":"svgTextRight",	
+		dx : -5
+		},
+	svgBar_label_position: "centerLeft",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text": "centerRight",
+		"style":"svgTextLeft",
+		"dx" : 5
+		},
+	svgBar_value_position: "centerRight",
+	});
+	  
+var affichenBar1=new svgBar_ModelView({el: $("#monCanvas"), model: nBar1 });
+
+///////////////////////////////////// BAR
+var nBar2=new svgBar_Model({ 
+	id : "testBar2", type: "jsBarTopBottom", x: 100, y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"bottomLeft",
+		"style":"svgTextRight",	
+		"dy": +20
+		},
+	svgBar_label_position: "bottomLeft",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text": "bottomRight",
+		"style":"svgTextLeft",
+		"dy": +20,
+		"dx":+5
+		},
+	svgBar_value_position: "bottomRight",
+	});
+	  
+var affichenBar2=new svgBar_ModelView({el: $("#monCanvas"), model: nBar2 });
+
+///////////////////////////////////// BAR
+var nBar3=new svgBar_Model({ 
+	id : "testBar3", type: "jsBarTopBottom", x: 100, y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"topMiddle" ,
+		"style":"svgTextMiddle",	
+		"dy": -7
+		},
+	svgBar_label_position: "topMiddle",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text": "bottomMiddle",
+		"style":"svgTextMiddle",			
+		"dy": +20
+		},
+	svgBar_value_position: "bottomMiddle",
+	});
+	  
+var affichenBar3=new svgBar_ModelView({el: $("#monCanvas"), model: nBar3 });
+
+///////////////////////////////////// BAR
+var nBar4=new svgBar_Model({ 
+	id : "testBar4", type: "jsBarTopBottom", x: 100, y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"centerMiddle",
+		"style":"svgTextMiddle",	
+		},
+	svgBar_label_position: "centerMiddle",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text":"" 
+	},
+	svgBar_value_position: "centerMiddle",
+	});
+	  
+var affichenBar4=new svgBar_ModelView({el: $("#monCanvas"), model: nBar4 });					
+});
+});
+</script>
+    <title>Mjsongraph</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ramamama/mJSONGraph">View on GitHub</a>
+
+          <h1 id="project_title">mJSONGraph</h1>
+          <h2 id="project_tagline">a JSON + css engine to make graph</h2>
+		  <a href="index.html">Accueil</a> - 		  
+		  <a href="svgHisto.html">svgHisto</a> - 
+		  <a href="svgBar.html">svgBar</a> - 
+		  <a href="svgRect.html">svgRect</a> -
+		  <a href="svgText.html">svgText</a> -
+		  <a href="exemple.html">exemple</a>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>mJSONGraph.</h1>
+
+
+<body>
+<div id="mleft"></div>
+<h1>code de la page</h1>
+<pre><code>
+	
+var mCanvas=new svgCanvas_Model({id:"monCanvas", x: 0, y: 0, w: 1000, h: 500, style:"mCanvas"});
+var maVue=new svgCanvas_ModelView({el:"#mleft ", model: mCanvas});   					
+
+
+///////////////////////////////////// BAR
+var nBar=new svgBar_Model({	id : "testBar", type: "jsBarTopBottom",	x: 100,	y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"topLeft",
+		"style":"svgTextRight",	
+		"dy": -7,
+		dx: -5
+		},
+	svgBar_label_position: "topLeft",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text":"topRight",
+		"style":"svgTextLeft",
+		"dy": -7,
+		dx: +5
+		},
+	svgBar_value_position: "topRight",
+	});
+	  
+var affichenBar=new svgBar_ModelView({el: $("#monCanvas"), model: nBar });
+
+///////////////////////////////////// BAR
+var nBar1=new svgBar_Model({ 
+	id : "testBar1", type: "jsBarTopBottom", x: 100, y: 50,	size: 300, thickness: 200,
+	svgBar_label: {
+		"text":"centerLeft",
+		"style":"svgTextRight",	
+		dx : -5
+		},
+	svgBar_label_position: "centerLeft",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text": "centerRight",
+		"style":"svgTextLeft",
+		"dx" : 5
+		},
+	svgBar_value_position: "centerRight",
+	});
+	  
+var affichenBar1=new svgBar_ModelView({el: $("#monCanvas"), model: nBar1 });
+
+///////////////////////////////////// BAR
+var nBar2=new svgBar_Model({ 
+	id : "testBar2", type: "jsBarTopBottom", x: 100, y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"bottomLeft",
+		"style":"svgTextRight",	
+		"dy": +20
+		},
+	svgBar_label_position: "bottomLeft",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text": "bottomRight",
+		"style":"svgTextLeft",
+		"dy": +20,
+		"dx":+5
+		},
+	svgBar_value_position: "bottomRight",
+	});
+	  
+var affichenBar2=new svgBar_ModelView({el: $("#monCanvas"), model: nBar2 });
+
+///////////////////////////////////// BAR
+var nBar3=new svgBar_Model({ 
+	id : "testBar3", type: "jsBarTopBottom", x: 100, y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"topMiddle" ,
+		"dy": -7
+		},
+	svgBar_label_position: "topMiddle",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text": "bottomMiddle",
+		"dy": +20
+		},
+	svgBar_value_position: "bottomMiddle",
+	});
+	  
+var affichenBar3=new svgBar_ModelView({el: $("#monCanvas"), model: nBar3 });
+
+///////////////////////////////////// BAR
+var nBar4=new svgBar_Model({ 
+	id : "testBar4", type: "jsBarTopBottom", x: 100, y: 50,	size: 300,	thickness: 200,
+	svgBar_label: {
+		"text":"centerMiddle" 
+		},
+	svgBar_label_position: "centerMiddle",
+	svgBar_rect: {   
+		"style":"cssdrawZone"
+		},
+	svgBar_value:  {
+		"text":"centerMiddle" 
+	},
+	svgBar_value_position: "centerMiddle",
+	});
+	  
+var affichenBar4=new svgBar_ModelView({el: $("#monCanvas"), model: nBar4 });		
+
+</code></pre>
+
+
+   </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mjsongraph maintained by <a href="https://github.com/ramamama">ramamama</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+  </body>
+</html>
+

@@ -7,6 +7,7 @@
     <meta name="description" content="Mjsongraph : a JSON + css engine to make graph" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/headjs/0.96/head.min.js"></script>
 
     <title>Mjsongraph</title>
   </head>
@@ -18,9 +19,14 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/ramamama/mJSONGraph">View on GitHub</a>
 
-          <h1 id="project_title">Mjsongraph</h1>
+          <h1 id="project_title">mJSONGraph</h1>
           <h2 id="project_tagline">a JSON + css engine to make graph</h2>
-
+		  <a href="svgCanvas.html">svgCanvas</a> - 	
+		  <a href="svgHisto.html">svgHisto</a> - 
+		  <a href="svgBar.html">svgBar</a> - 
+		  <a href="svgRect.html">svgRect</a> -
+		  <a href="svgText.html">svgText</a> -
+		  <a href="exemple.html">exemple</a>		  
             <section id="downloads">
               <a class="zip_download_link" href="https://github.com/ramamama/mJSONGraph/zipball/master">Download this project as a .zip file</a>
               <a class="tar_download_link" href="https://github.com/ramamama/mJSONGraph/tarball/master">Download this project as a tar.gz file</a>
@@ -33,12 +39,10 @@
       <section id="main_content" class="inner">
         <h1>mJSONGraph.</h1>
 
-<p>Target : create svg Graph with JSON template et css sheets
-Shortly: JSON data + mJSONGraph + cssStyle + JSONStyle --&gt; svg Graph</p>
-
 <hr><p>Objectif: créer des représentations graphiques de données basées sur des modèles JSON.</p>
 
 <p>En cours :  JSON data + mJSONGraph + cssStyle + JSONStyle --&gt; une représentation graphique des données.</p>
+<img src="images/principe.png" />
 
 <p>mJSONGraph est développé en javascript avec Backbone pour la modélisation des objets et d3.js pour le rendu graphique. (d3.js doit à terme être remplacé par une bibliothèque propre à mJSONGraph)</p>
 
@@ -50,11 +54,15 @@ Shortly: JSON data + mJSONGraph + cssStyle + JSONStyle --&gt; svg Graph</p>
 
 <h3>Les objets de mJSONGraph sont structurés de la façon suivante:</h3>
 
-<p>svgHisto
-     svgBar 
-         svgText --&gt; Label
-         svgRect --&gt; Graph ici rectangle
-         svgText --&gt; Label</p>
+<img src="images/carte.png" />
+
+<ul>
+<li><a href="svgCanvas.html">svgCanvas</a></li>
+<li><a href="svgHisto.html">svgHisto</a></li>
+<li><a href="svgBar.html">svgBar</a></li>
+<li><a href="svgRect.html">svgRect</a></li>
+<li><a href="svgText.html">svgText</a></li>
+</ul>
 
 <p>Comment construire un modèle JSON sous forme d'histogramme.</p>
 
@@ -73,6 +81,7 @@ head.js("http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery-1.8.0.min.js"
     .js("http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js")
     .js("http://cdnjs.cloudflare.com/ajax/libs/d3/2.10.0/d3.v2.min.js")
     .js("js/svgFunction.js")    
+    .js("js/svgCanvas.js")    	
     .js("js/svgRect.js")        
     .js("js/svgText.js")
     .js("js/svgBar.js")
@@ -98,358 +107,20 @@ head.ready(function() {
 <p><strong>L'utilisation des bibliothèques suivantes est nécessaire pour utiliser myGraphJSON:</strong></p>
 
 <ul>
-<li>head --&gt; pour télécharger les autres librairies de manière asynchrone</li>
-<li>jquery --&gt; pour vérifier le bon chargement de la page</li>
-<li>underscore --&gt;  car nécessaire à backbone</li>
-<li>backbone --&gt; pour modéliser les objets</li>
-<li>d3.js --&gt; pour afficher le svg</li>
-<li>svgFunction.js     --&gt; bibliothèque de fonctions qui sont utilisées dans plusieurs objets myGraphJSON </li>
-<li>svgRect.js    --&gt; description de l'objet svgRect<br>
-</li>
-<li>svgText.js    --&gt; description de l'objet svgText</li>
-<li>svgBar.js --&gt; description de l'objet svgBar</li>
-<li>svgHisto.js   --&gt; description de l'objet svgHisto</li>
-</ul><p>La bibliothèque contient les objets suivants:</p>
+<li>head.js : pour télécharger les autres librairies de manière asynchrone</li>
+<li>jquery : pour vérifier le bon chargement de la page</li>
+<li>underscore : car nécessaire à backbone</li>
+<li>backbone : pour modéliser les objets</li>
+<li>d3.js : pour afficher le svg</li>
+<li>svgFunction.js : bibliothèque de fonctions qui sont utilisées dans plusieurs objets myGraphJSON </li>
+<li>svgCanvas.js : description de l'objet svgCanvas<br></li>
+<li>svgRect.js : description de l'objet svgRect<br></li>
+<li>svgText.js : description de l'objet svgText</li>
+<li>svgBar.js : description de l'objet svgBar</li>
+<li>svgHisto.js : description de l'objet svgHisto</li>
+</ul>
 
-<h2>svgText</h2>
 
-<h3>Structure de l'objet svgText</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>    var untext=new svgText_Model({  
-    id : "texte1",
-    text:"Exemple de texte",
-    x: 10,
-    y: 10,
-    dx: 0,
-    dy: 0,
-    transform:"",
-    style:"svgTextDefault"
-    });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>id : null, --&gt;    id de l'objet Text doit être définit ou est transmis par l'objet appelant</li>
-<li>text:"", --&gt;  texte qui sera affiché</li>
-<li>x: 0, --&gt; position horizontale du texte</li>
-<li>y: 0, --&gt; position verticale du texte</li>
-<li>dx: 0, --&gt;    décalage horizontal du texte</li>
-<li>dy: 0, --&gt;    décalage verticale du texte</li>
-<li>style:"svgTextDefault"--&gt; style par défaut du texte </li>
-</ul><p><strong>Defaut css style:</strong></p>
-
-<pre><code>.svgTextDefault {font-family: Arial; font-size: 34; text-anchor: middle;}
-</code></pre>
-
-<h3>Rendu de l'objet svgText</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>    var afficheTxt=new svgText_ModelView({el: mtext, model: untext });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>el: --&gt;   svg élément, où dessiner le texte</li>
-<li>model: --&gt;    objet model</li>
-</ul><p><strong>Exemple:</strong></p>
-
-<pre><code>//on creer le code svg et on lui affecte id=mText1
-d3.select("#mleft").append("svg").attr("id","mText1");
-
-// on creer un objet svgText
-var untext=new svgText_Model({  
-    id : "texte1",
-    text:"Exemple de texte",
-    x: 10,
-    y: 10,
-    dx: 0,
-    dy: 0,
-    transform:"",
-    style:"svgTextDefault"
-    });
-//on affiche l'objet untext à l'emplacement mText1
-var afficheTxt=new svgText_ModelView({el: $("#mText1"), model: untext });
-</code></pre>
-
-<h2>svgRect</h2>
-
-<h3>Structure de l'objet svgRect</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>var monRect=new svgRect_Model({
-    id : "monRect1",
-    x: 10,
-    y: 10,
-    w: 80,
-    h: 80,
-    style:"svgRectDefault"
-    });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>id : null, --&gt;    id de l'objet svgRect doit être définit ou est transmis par l'objet appelant</li>
-<li>x: 0,--&gt;  position horizontale du rectangle</li>
-<li>y: 0,--&gt;  position verticale du rectangle</li>
-<li>w: 0,--&gt;  largeur du rectangle</li>
-<li>h: 0,--&gt;  hauteur du rectangle</li>
-<li>style:" svgRectDefault "  --&gt; style par défaut du rectangle</li>
-</ul><p><strong>defaut css style:</strong></p>
-
-<pre><code>.svgRectDefault {fill: red; }
-</code></pre>
-
-<h3>Rendu de l'objet</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>var afficheMonRect=new svgRect_ModelView({el: $("#RectE"), model: monRect });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>el: --&gt;   svg element, où dessiner le texte</li>
-<li>model: --&gt;    objet model</li>
-</ul><p><strong>Exemple:</strong></p>
-
-<pre><code>//on creer le code svg et on lui affecte id= RectE
-d3.select("#mrect").append("svg").attr("id","RectE");   
-
-// on creer un objet svgRect
-var monRect=new svgRect_Model({ id : "monRect1",
-                    x: 10,
-                    y: 10,
-                    w: 80,
-                    h: 80,
-                    style:"svgRectDefault"
-                    });
-//on affiche l'objet monRect à l'emplacement RectE
-var afficheMonRect=new svgRect_ModelView({el: $("#RectE"), model: monRect });
-</code></pre>
-
-<h2>svgBar</h2>
-
-<h3>Structure de l'objet svgBar</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>var nBar=new svgBar_Model({ id : "testBar", 
-                type: "jsBarTopBottom",
-                x: 10,
-                y: 50,
-                size: 100,
-                thickness: 50,
-                svgBar_label:  {
-                    "text":"Label",
-                    "dx": 0,
-                    "dy": 0
-                },
-                svgBar_label_position: "centerMiddle",
-                svgBar_rect:    {   
-                    "style":"cssdrawZone1"
-                },
-                svgBar_value:  {
-                    text: 10,
-                    "dx": 0,
-                    "dy": -5
-                },
-                svgBar_value_position: "topMiddle",
-        });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>id : null, --&gt;    id de l'objet Bar doit être définit ou est transmis par l'objet appelant</li>
-<li>type: "", --&gt; jsBarLeftRight ou jsBarTopBottom</li>
-<li>x: 0, --&gt; position horizontale de la bar</li>
-<li>y: 0, --&gt; position verticale de la bar</li>
-<li>size: 0, --&gt;  Taille de la Bar</li>
-<li>thickness: 0, --&gt;     Epaisseur de la Bar</li>
-<li>svgBar_rect: --&gt;  svgRect objet ou structure JSON de svgRect<br>
-</li>
-<li>svgBar_label: --&gt; svgText objet ou structure JSON de svgText</li>
-<li>svgBar_label_position: cf. position des textes par rapport à la forme centrale</li>
-<li>svgBar_value: --&gt; svgText objet ou structure JSON de svgText</li>
-<li>svgBar_value_position: cf. position des textes par rapport à la forme centrale</li>
-</ul><p><em>defaut css style:</em></p>
-
-<h3>Rendu de l'objet</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>var affichenBar=new svgBar_ModelView({el: $("#Abar"), model: nBar });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>el: --&gt;   svg element, où dessiner le texte</li>
-<li>model: --&gt;    objet model</li>
-</ul><p><strong>Exemple:</strong></p>
-
-<pre><code>//on creer le code svg et on lui affecte id= Abar
-d3.select("#mbar").append("svg").attr("id","Abar"); 
-
-// on creer un objet svgBar
-var nBar=new svgBar_Model({ id : "testBar", 
-                type: "jsBarTopBottom",
-                x: 10,
-                y: 50,
-                size: 100,
-                thickness: 50,
-                svgBar_label:  {
-                    "text":"Label",
-                    "dx": 0,
-                    "dy": 0
-                },
-                svgBar_label_position: "centerMiddle",
-                svgBar_rect:    {   
-                    "style":"cssdrawZone1"
-                },
-                svgBar_value:  {
-                    text: 10,
-                    "dx": 0,
-                    "dy": -5
-                },
-                svgBar_value_position: "topMiddle",
-        });
-
-//on affiche l'objet nBar à l'emplacement Abar
-var affichenBar=new svgBar_ModelView({el: $("#Abar"), model: nBar });
-</code></pre>
-
-<p>Position des textes par rapport à la forme centrale:
-left, middle, right
-top
-center
-bottom</p>
-
-<h2>svgHisto</h2>
-
-<h3>Structure de l'objet svgHisto</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>var myHisto2=new svgHisto_Model({   
-    id : "histoBar2",
-    type: "bottomup",
-    x: 100,
-    y: 50,
-    w: 200,
-    h: 300,
-    interBar: 5,
-    data: mdata,
-    labelKey: "dateExtraction",
-    valueKey: "Effectif_reel",
-    svgBar_Style:{  
-        id : "testBar", 
-        type: "jsBarTopBottom",
-        x: 10,
-        y: 50,
-        size: 100,
-        thickness: 50,
-        svgBar_label:  {
-            "text":"Label",
-            "dx": 0,
-            "dy": 0
-            },
-        svgBar_label_position: "centerMiddle",
-        svgBar_rect:    {   
-            "style":"cssdrawZone1"
-            },
-        svgBar_value:  {
-            text: 10,
-            "dx": 0,
-            "dy": -5
-            },
-        svgBar_value_position: "topMiddle",
-        });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>id : "",--&gt;   id de l'objet histogramme</li>
-<li>type: "", --&gt; type d'histogramme topDown, bottomUp, leftRight, rightLeft</li>
-<li>x: 0, --&gt; position horizontale de l'histogramme</li>
-<li>y: 0, --&gt; position verticale de l'histogramme</li>
-<li>w: 0, --&gt; largeur de l'histogramme</li>
-<li>h: 0, --&gt; hauteur de l'histogramme</li>
-<li>interBar: 5,--&gt;   espace entre les bars</li>
-<li>data:, --&gt;    table de donnée</li>
-<li>labelKey: "",--&gt;  clé de la table contenant les titres</li>
-<li>valueKey: "",--&gt;  clé de la table contenant les valeurs</li>
-<li>svgBar_Style: --&gt; svgBar objet ou structure JSON de svgBar</li>
-</ul><p><strong>defaut css style:</strong></p>
-
-<pre><code>aucun
-</code></pre>
-
-<h3>Rendu de l'objet</h3>
-
-<p><strong>code:</strong></p>
-
-<pre><code>var affichenBar=new svgBar_ModelView({el: $("#Abar"), model: nBar });
-</code></pre>
-
-<p><strong>description:</strong></p>
-
-<ul>
-<li>el:   --&gt; svg element, où dessiner le texte</li>
-<li>model:    --&gt; objet model</li>
-</ul><p><strong>exemple:</strong></p>
-
-<pre><code>//on creer le code svg et on lui affecte id= Histo2
-d3.select("#mright").append("svg").attr("id","Histo2");
-
-// on creer un objet svgHisto
-var myHisto2=new svgHisto_Model({   
-    id : "histoBar2",
-    type: "bottomup",
-    x: 100,
-    y: 50,
-    w: 200,
-    h: 300,
-    interBar: 5,
-    data: mdata,
-    labelKey: "dateExtraction",
-    valueKey: "Effectif_reel",
-    svgBar_Style:{  
-        id : "testBar", 
-        type: "jsBarTopBottom",
-        x: 10,
-        y: 50,
-        size: 100,
-        thickness: 50,
-        svgBar_label:  {
-            "text":"Label",
-            "dx": 0,
-            "dy": 0
-            },
-        svgBar_label_position: "centerMiddle",
-        svgBar_rect:    {   
-            "style":"cssdrawZone1"
-            },
-        svgBar_value:  {
-            text: 10,
-            "dx": 0,
-            "dy": -5
-            },
-        svgBar_value_position: "topMiddle",
-        });
-
-//on affiche l'objet myHisto2 à l'emplacement Histo2
-var myView=new svgHisto_ModelView({el: $("#Histo2"), model: myHisto2});
-</code></pre>
       </section>
     </div>
 

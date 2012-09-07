@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index.html</title>
+<link rel="stylesheet" href="../css/svgDefault.css" type="text/css" />
+<style type='text/css'>
+#drawZone {
+	background-color: teal;
+	padding: 10px;
+}
+	#mleft { width: 50%; float: left; }
+	#mright { width: 50%; float: right; background-color: green;}
+	.barStyle{
+		fill:blue;
+		stroke:pink;
+		stroke-width:5;
+		fill-opacity:0.1;
+		stroke-opacity:0.9
+	}	
+	.ligne3{
+		font-size:60px;
+		font-weight:bold;
+		fill:none;
+		stroke:gold;
+		stroke-opacity:0.5;
+		stroke-width:6px;
+		stroke-dasharray:10,5;
+	}
+	.textStyle1 {font-family: Arial;
+                 font-size  : 34;
+                 stroke     : #00ff00;
+                 fill       : #00ff00;
+                }
+	
+.cssdrawZone1 {fill: red; }
+.cssDefaultRect {fill: green; }
+.mCanvas{ background-color: grey;}
+</style>
+<script type="text/javascript" src="../lib/head.js"></script>
+
+<script language="javascript">
+head.js("../lib/jquery-1.8.1.min.js")
+		.js("../lib/underscore-min.js")
+		.js("../lib/backbone-min.js")
+		.js("../lib/d3.v2.min.js")
+		.js("js/svgFunction.js")			
+		.js("js/svgMGraph.js")	
+		.js("js/svgCanvas.js")	
+		.js("js/svgRect.js")		
+		.js("js/svgText.js")
+		.js("js/svgBar.js")
+		.js("js/svgHisto.js");
+
+head.ready(function() {
+	$(document).ready(function(){
+	
+var styleBar1={	type: "jsBarTopBottom",
+					svgBar_label:  {
+						"dx": 0,
+						"dy": 0
+					},
+					svgBar_label_position: "centerMiddle",
+					svgBar_rect:  	{
+						"rx":20,
+						"ry":20,
+						"style":"barStyle"
+					},
+					svgBar_value:  {
+						"dx": 0,
+						"dy": -5
+					},
+					svgBar_value_position: "topMiddle",
+				};
+	
+var styleBar2={	type: "jsBarLeftRight",
+					svgBar_label:  {
+						"dx": 0,
+						"dy": 0,
+						style: "textStyle1"
+					},
+					svgBar_label_position: "centerMiddle",
+					svgBar_rect:  	{ 	
+						"style":"cssdrawZone1"
+					},
+					svgBar_value:  {
+						"dx": +15,
+						"dy": 0,
+						"style": "ligne3"
+					},
+					svgBar_value_position: "centerRight",
+				};
+	
+	
+
+	
+	
+	
+	
+	
+	
+/************************************ Function *******************************/
+var mdata=	[{dateExtraction: 2007, Effectif_reel : 51},
+			{dateExtraction: 2008, 	Effectif_reel : 59},
+			{dateExtraction: 2009,	Effectif_reel : 52},
+			{dateExtraction: 2010,	Effectif_reel : 37},
+			{dateExtraction: 2011,	Effectif_reel : 24}];
+
+
+var mCanvas=new svgCanvas_Model({id:"monCanvas", x: 0, y: 0, w: 1000, h: 500, style:"mCanvas"});
+var maVue=new svgCanvas_ModelView({el:"#mleft ", model: mCanvas});   					
+	
+var monstyle2={	type: "bottomup",
+				x: 10,
+				y: 50,
+				w: 200,
+				h: 300,
+				interBar: 10,
+				data: mdata,
+				labelKey: "dateExtraction",
+				valueKey: "Effectif_reel",
+				svgBar_Style:styleBar1
+			};
+var myHisto2=new svgHisto_Model(monstyle2);
+var myView=new svgHisto_ModelView({el: $("#monCanvas"), model: myHisto2});	
+
+			
+var monstyle3={	type: "leftRight",
+				x: 250,
+				y: 50,
+				w: 200,
+				h: 300,
+				interBar: 5,
+				data: mdata,
+				labelKey: "dateExtraction",
+				valueKey: "Effectif_reel",
+				svgBar_Style:styleBar2
+			};	
+	
+
+
+var myHisto3=new svgHisto_Model(monstyle3);
+var myView=new svgHisto_ModelView({el: $("#monCanvas"), model: myHisto3});
+
+
+///////////////////////////////////// BAR
+	var nBar=new svgBar_Model({ 
+	id : "testBar", 
+	type: "jsBarTopBottom",
+	x: 600,
+	y: 50,
+	size: 300,
+	thickness: 150,
+	svgBar_label: {
+		"text":"centerMiddle",
+		"dx": 0,
+		"dy": 0
+		},
+	svgBar_label_position: "centerMiddle",
+	svgBar_rect: {   
+		"style":"cssdrawZone1"
+		},
+	svgBar_value:  {
+		"text": "topMiddle",
+		"dx": 0,
+		"dy": -5
+		},
+	svgBar_value_position: "topMiddle",
+	});
+	  
+//on affiche l'objet nBar à l'emplacement Abar
+var affichenBar=new svgBar_ModelView({el: $("#monCanvas"), model: nBar });
+
+
+
+
+								
+});
+});
+</script>
+
+
+
+
+</head>
+<body>
+	<div id="mleft"></div>
+</body>
+</html>
+
+
